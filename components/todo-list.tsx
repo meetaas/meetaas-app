@@ -5,8 +5,8 @@ import Todo from "./todo";
 export default function TodoList(props: { todos: TodoModel[] }) {
     const todos = props.todos;
     return <List>
-        {todos.map((todo) => {
+        {todos.map((todo) => (
             <List.Item key={todo.id}><Todo todo={todo}></Todo></List.Item>
-        })}
+        ))}
     </List>
 }

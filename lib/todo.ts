@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { z } from 'zod';
 import { Priority } from "./common";
 
 export enum TodoStatus {
@@ -21,3 +22,10 @@ export function createTodo(todo: TodoModel): TodoModel{
     todo.status = todo.status || TodoStatus.NotStarted;
     return todo;
 }
+
+export const TodoZod: z.ZodType<TodoModel> = z.lazy(() =>
+  z.object({
+    title: z.string(),
+    subTodos: z.array(TodoZod).optional(),
+  })
+);

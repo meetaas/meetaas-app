@@ -7,6 +7,5 @@ export default function Todo(props: {todo: TodoModel}) {
     return <Container>
         <Text>{todo.title}</Text>
         {todo.subTodos && <TodoList todos={todo.subTodos} />}
-    <List.Item>{todo.title}</List.Item>
     </Container>
  }

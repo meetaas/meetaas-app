@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
 import create from 'zustand'
 import { Priority } from './common';
-import { TodoModel } from './todo'
+import { createTodo, TodoModel } from './todo'
 
 export enum MeetingStatus {
   Unscheduled,
@@ -24,6 +24,9 @@ export function createMeeting(meeting: MeetingModel): MeetingModel{
   meeting.id = nanoid();
   meeting.priority = meeting.priority || Priority.Low;
   meeting.status = meeting.status || (meeting.time ? MeetingStatus.Scheduled : MeetingStatus.Unscheduled)
+   if (meeting.todos) {
+    meeting.todos = meeting.todos.map(createTodo)
+   }
   return meeting;
 }
 
