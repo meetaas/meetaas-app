@@ -1,19 +1,20 @@
-import { ActionIcon, Card, Group, Text, Title } from "@mantine/core";
-import { IconPencil, IconTrash } from "@tabler/icons";
+import { ActionIcon, Card, Group, ScrollArea, Text, Title } from "@mantine/core";
+import { IconMaximize, IconPencil, IconTrash } from "@tabler/icons";
 import { useRouter } from "next/router";
 import { DiscussionModel, useDiscussionStore } from "../lib/discussion";
-import QuestionList from "./question-list";
 
-export default function Discussion(props: { discussion: DiscussionModel }) {
+export default function DiscussionCard(props: { discussion: DiscussionModel }) {
     const router = useRouter();
     const removeDiscussion = useDiscussionStore(store => store.removeDiscussion);
     const discussion = props.discussion;
     return (
-        <Card shadow="sm" p="sm" style={{ width: 300 }}>
+        <Card shadow="sm" p="sm" style={{ width: 280 }}>
             <Group position="left" >
                 <Title>{discussion.title}</Title>
                 {discussion.context != undefined && (
-                    <Text>{discussion.context}</Text>
+                    <ScrollArea style={{ height: 120 }}>
+                        <Text>{discussion.context}</Text>
+                    </ScrollArea>
                 )}
             </Group>
 
@@ -21,7 +22,14 @@ export default function Discussion(props: { discussion: DiscussionModel }) {
                 <ActionIcon
                     color="blue"
                     variant="hover"
-                    onClick={() => router.push(`discussion/edit/${discussion.id}`)}
+                    onClick={() => router.push(`discussion/${discussion.id}`)}
+                >
+                    <IconMaximize size={16} />
+                </ActionIcon>
+                <ActionIcon
+                    color="blue"
+                    variant="hover"
+                    onClick={() => router.push(`discussion/${discussion.id}/edit`)}
                 >
                     <IconPencil size={16} />
                 </ActionIcon>

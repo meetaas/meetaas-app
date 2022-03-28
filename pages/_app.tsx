@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { AppProps } from 'next/app';
 import { getCookie, setCookies } from 'cookies-next';
 import Head from 'next/head';
-import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
+import { MantineProvider, ColorScheme, ColorSchemeProvider, Box } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import '../styles/styles.css'
+import { ErrorBoundary } from '../components/ErrorBoundry';
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
@@ -18,7 +19,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   };
 
   return (
-    <>
+    <Box>
       <Head>
         <title>Meetaas</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
@@ -34,7 +35,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
           </NotificationsProvider>
         </MantineProvider>
       </ColorSchemeProvider>
-    </>
+    </Box>
   );
 }
 

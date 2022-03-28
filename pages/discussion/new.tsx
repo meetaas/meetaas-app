@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useDiscussionStore } from '../../lib/discussion';
-import DiscussionForm from '../../components/discussion-form';
+import DiscussionForm from '../../components/DiscussionForm';
 
 export default function CreateDiscussion(): JSX.Element {
   const router = useRouter();

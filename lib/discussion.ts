@@ -1,14 +1,14 @@
 import { nanoid } from 'nanoid';
 import create from 'zustand'
 import { Priority } from './common';
-import { createQuestion, QuestionModel } from './question';
+import { createPoint, isValidPoint, PointFormModel, PointModel } from './point';
+import { object, optional, string, array, size, Infer, enums } from 'superstruct';
+import { createContext } from 'react';
 
 export enum DiscussionStatus {
-  Open,
-  InProgress,
-  Canceled,
-  Concluded,
-  Archived
+  Open = "open",
+  Canceled = "cancelled",
+  Completed = "completed",
 }
 
 export interface DiscussionModel {
@@ -17,15 +17,29 @@ export interface DiscussionModel {
     context?: string,
     status?: DiscussionStatus,
     priority?: Priority,
-    questions?: QuestionModel[]
+    points: PointModel[]
 }
+
+export const DiscussionFormModel = object({
+  id: optional(string()),
+  title: size(string(), 5, 30),
+  context: optional(size(string(), 0, 500)),
+  status: optional(enums(Object.values(DiscussionStatus))),
+  priority: optional(enums(Object.values(Priority))),
+  points: array(PointFormModel)
+});
+
+export type DiscussionFormModel = Infer<typeof DiscussionFormModel>
 
 export function createDiscussion(discussion: DiscussionModel): DiscussionModel{
   discussion.id = discussion.id  || nanoid();
+  if(discussion.context?.length === 0) {
+    discussion.context = undefined;
+  }
   discussion.priority = discussion.priority || Priority.Low;
   discussion.status = discussion.status ||  DiscussionStatus.Open
-   if (discussion.questions) {
-    discussion.questions = discussion.questions.map(createQuestion)
+   if (discussion.points) {
+    discussion.points = discussion.points.filter(isValidPoint).map(createPoint)
    }
   return discussion;
 }
@@ -67,3 +81,19 @@ export const useDiscussionStore = create<DiscussionState>((set, get) => ({
   },
 }));
 
+export module DiscussionErrors {
+  export const NOT_FOUND = "Discussion is not found";
+  export const ID_REQUIRED = "Discussion Id is required";
+} 
+
+export function defaultDiscussion(): DiscussionModel {
+  return {title: "", id: nanoid(), points: []};
+}
+
+export const DiscussionContext = createContext(defaultDiscussion());
+
+export class DiscussionError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}

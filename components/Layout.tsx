@@ -1,6 +1,6 @@
 import { AppShell, Navbar, Header } from '@mantine/core';
-import SideNav from './sidenav';
-import TopNav from './topnav';
+import SideNav from './SideNav';
+import TopNav from './TopNav';
 
 export default function Layout({ children }) {
   return (

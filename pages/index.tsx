@@ -1,8 +1,6 @@
 import { Title, Text, Anchor } from '@mantine/core';
 import { useState } from 'react';
-import ColorSchemeToggle from '../components/color-scheme-toggle';
-import RichTextEditor from '../components/editor';
-import { Container } from '@mantine/core';
+import ColorSchemeToggle from '../components/ColorSchemeToggle';
 import Router from 'next/router'
 
 export default function HomePage() {
@@ -25,9 +23,6 @@ export default function HomePage() {
       </Text>
       <ColorSchemeToggle />
       <a onClick={() => Router.push('/blog', undefined, { shallow: true })}>Blogs</a>
-      <Container size="md" px="md">
-        <RichTextEditor value={value} onChange={onChange} />
-      </Container>
     </>
   );
 }
