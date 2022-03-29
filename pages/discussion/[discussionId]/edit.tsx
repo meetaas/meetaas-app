@@ -3,7 +3,6 @@ import { DiscussionContext, useDiscussionStore } from '../../../lib/discussion';
 
 import DiscussionForm from '../../../components/DiscussionForm';
 import { Box } from '@mantine/core';
-import PageTitle from '../../../components/PageTitle';
 import { useContext } from 'react';
 import DiscussionContextProvider from '../../../components/DiscussionContextProvider';
 
@@ -27,7 +26,6 @@ function DiscussionEditPageContent() {
     }
     return (
         <Box title="Edit Discussion">
-            <PageTitle title={discussion.title} />
             <DiscussionForm handleFormSubmit={handleFormSubmit}
                 action="Update" discussion={discussion} />
         </Box>

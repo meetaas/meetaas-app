@@ -1,4 +1,4 @@
-import { Button, Container, Group, Title } from "@mantine/core"
+import { Box, Button, Group, Title } from "@mantine/core"
 import { IconPlus } from "@tabler/icons"
 import Link from "next/link"
 import DiscussionGrid from "../../components/DiscussionGrid"
@@ -7,7 +7,7 @@ import { useDiscussionStore } from "../../lib/discussion"
 export default function Discussions() {
     const discussions = useDiscussionStore(state => state.discussions)
     return (
-        <Container>
+        <Box>
             <Group position="apart">
                 <Title>Discussions</Title>
                 <Link href="/discussion/new">
@@ -17,6 +17,6 @@ export default function Discussions() {
                 </Link>
             </Group>
             {discussions.length > 0 && <DiscussionGrid discussions={discussions} />}
-        </Container>
+        </Box>
     );
 }

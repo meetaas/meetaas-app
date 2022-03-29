@@ -1,15 +1,16 @@
-import { AppShell, Navbar, Header } from '@mantine/core';
-import SideNav from './SideNav';
+import { AppShell } from '@mantine/core';
 import TopNav from './TopNav';
 
 export default function Layout({ children }) {
   return (
     <AppShell
       padding="md"
-      navbar={<SideNav />}
       header={<TopNav />}
       styles={(theme) => ({
-        main: { backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0] },
+        main: {
+          height: "100vh",
+          backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0]
+        },
       })}
     >
       {children}

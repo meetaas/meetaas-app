@@ -13,8 +13,8 @@ export default function PointForm(props: {
     removeHandler, insertHandler
 }): JSX.Element {
     const { register, formState: { errors }, watch } = useFormContext<DiscussionFormModel>();
-    const point = watch(`points.${props.index}`) as PointModel;
-    const [toggleContext, setToggleContext] = useState(point.context || false);
+    const point = watch(`points.${props.index}`) as PointModel | undefined;
+    const [toggleContext, setToggleContext] = useState(point?.context || false);
     const {
         setNodeRef,
         attributes,
@@ -40,7 +40,7 @@ export default function PointForm(props: {
             <Grid >
                 <Grid.Col span={10} style={{ margin: "auto" }}>
                     <TextInput size="md" {...register(`points.${props.index}.title`)}
-                        placeholder="What do you want to discuss?"
+                        placeholder="What points do you want to discuss?"
                         title="Point Title"
                         rightSection={
                             <ActionIcon variant="filled" color="blue"
@@ -58,13 +58,13 @@ export default function PointForm(props: {
                 <Grid.Col span={2} style={{ margin: "auto" }}>
                     <Group position="center">
                         <ActionIcon {...listeners} size="md" title="Order Point"
-                            variant="filled" color="blue" 
-                            disabled={props.pointsCount==1}>
+                            variant="filled" color="blue"
+                            disabled={props.pointsCount == 1}>
                             <IconDragDrop size={14} />
                         </ActionIcon>
                         <ActionIcon size="md" title="Remove Point"
                             variant="filled" color="red"
-                            disabled={props.pointsCount==1}
+                            disabled={props.pointsCount == 1}
                             onClick={props.removeHandler}>
                             <IconTrash size={14} />
                         </ActionIcon>

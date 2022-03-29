@@ -1,11 +1,8 @@
-import { ActionIcon, Card, Group, ScrollArea, Text, Title } from "@mantine/core";
-import { IconMaximize, IconPencil, IconTrash } from "@tabler/icons";
-import { useRouter } from "next/router";
-import { DiscussionModel, useDiscussionStore } from "../lib/discussion";
+import { Card, Group, ScrollArea, Text, Title } from "@mantine/core";
+import { DiscussionModel } from "../lib/discussion";
+import DiscussionActions from "./DiscussionActions";
 
 export default function DiscussionCard(props: { discussion: DiscussionModel }) {
-    const router = useRouter();
-    const removeDiscussion = useDiscussionStore(store => store.removeDiscussion);
     const discussion = props.discussion;
     return (
         <Card shadow="sm" p="sm" style={{ width: 280 }}>
@@ -17,30 +14,7 @@ export default function DiscussionCard(props: { discussion: DiscussionModel }) {
                     </ScrollArea>
                 )}
             </Group>
-
-            <Group position="right">
-                <ActionIcon
-                    color="blue"
-                    variant="hover"
-                    onClick={() => router.push(`discussion/${discussion.id}`)}
-                >
-                    <IconMaximize size={16} />
-                </ActionIcon>
-                <ActionIcon
-                    color="blue"
-                    variant="hover"
-                    onClick={() => router.push(`discussion/${discussion.id}/edit`)}
-                >
-                    <IconPencil size={16} />
-                </ActionIcon>
-                <ActionIcon
-                    color="red"
-                    variant="hover"
-                    onClick={() => removeDiscussion(discussion.id)}
-                >
-                    <IconTrash size={16} />
-                </ActionIcon>
-            </Group>
+            <DiscussionActions discussion={discussion} />
         </Card>
     );
 }

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useDiscussionStore, DiscussionContext, DiscussionErrors, DiscussionError } from "../lib/discussion";
 import DefaultErrorFallback from "./DefaultErrorFallback";
 import DiscussionErrorFallback from "./DiscussionErrorFallback";
+import PageTitle from "./PageTitle";
 
 export default function DiscussionContextProvider({ children }) {
     try {
@@ -22,6 +23,7 @@ export default function DiscussionContextProvider({ children }) {
         }
         return (
             <DiscussionContext.Provider value={discussion}>
+                <PageTitle title={discussion.title} />
                 {children}
             </DiscussionContext.Provider>
         )

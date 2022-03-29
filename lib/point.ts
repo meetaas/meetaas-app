@@ -37,6 +37,6 @@ export function createPoint(point: PointModel): PointModel{
     return point;
 }
 
-export function isValidPoint(point: PointModel): boolean {
-    return point.title != undefined && point.title.length > 0; 
+export function isValidPoint(point?: PointModel): boolean {
+    return !!point && !!point.title && point.title.length > 0; 
 }

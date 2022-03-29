@@ -7,7 +7,6 @@ import { MantineProvider, ColorScheme, ColorSchemeProvider, Box } from '@mantine
 import { NotificationsProvider } from '@mantine/notifications';
 import Layout from '../components/Layout'
 import '../styles/styles.css'
-import { ErrorBoundary } from '../components/ErrorBoundry';
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
