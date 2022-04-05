@@ -19,8 +19,10 @@ export default function DiscussionDetails(): JSX.Element {
   return (
     <Box>
       <DiscussionHeader />
-      {!!discussion.context && <Paper>{discussion.context}</Paper> }
-      <PointList points={discussion.points}/>
+      {!!discussion.context && <Paper style={{ marginBottom: 10, padding: 10 }}>
+        {discussion.context}
+      </Paper>}
+      <PointList points={discussion.points} />
     </Box>
   );
 }

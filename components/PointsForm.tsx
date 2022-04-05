@@ -4,7 +4,7 @@ import {
 } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { ActionIcon, Container, Group, Paper, Text } from "@mantine/core";
+import { ActionIcon, Container, Group, Paper, Title } from "@mantine/core";
 import { IconPlus } from "@tabler/icons";
 import { useFieldArray } from "react-hook-form";
 import { defaultPoint } from "../lib/point";
@@ -12,10 +12,10 @@ import PointForm from "./PointForm";
 
 function PointsFormHeader(props: { handleAddAction: () => void }) {
     return (
-        <Group>
-            <Text weight={500} size="sm" sx={{ flex: 1 }}>
+        <Group position="apart">
+            <Title order={3}>
                 Points
-            </Text>
+            </Title>
             <ActionIcon variant="filled" title="Add Point"
                 color="blue" onClick={props.handleAddAction}>
                 <IconPlus size={16} />
