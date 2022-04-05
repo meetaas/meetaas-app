@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useDiscussionStore } from '../../lib/discussion';
+import { defaultDiscussion, DiscussionContext, useDiscussionStore } from '../../lib/discussion';
 import DiscussionForm from '../../components/DiscussionForm';
 
 export default function CreateDiscussion(): JSX.Element {
@@ -10,6 +10,8 @@ export default function CreateDiscussion(): JSX.Element {
     router.push("/discussion");
   }
   return (
-    <DiscussionForm handleFormSubmit={handleFormSubmit} action="Create" />
+    <DiscussionContext.Provider value={{ discussion: defaultDiscussion(), page: "new"}}>
+      <DiscussionForm handleFormSubmit={handleFormSubmit} action="Create" />
+    </DiscussionContext.Provider>
   );
 }

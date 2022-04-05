@@ -1,4 +1,4 @@
-import { ActionIcon, Card, Grid, Group, Textarea, TextInput } from "@mantine/core";
+import { ActionIcon, Card, Grid, Group, NativeSelect, Textarea, TextInput } from "@mantine/core";
 import { IconDots, IconDragDrop, IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -7,12 +7,14 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { getHotkeyHandler } from "@mantine/hooks";
 import { isValidPoint, PointModel } from "../lib/point";
+import { PriorityMap } from "../lib/common"
 
 export default function PointForm(props: {
     fieldId: string, pointsCount: number, index: number,
     removeHandler, insertHandler
 }): JSX.Element {
     const { register, formState: { errors }, watch } = useFormContext<DiscussionFormModel>();
+
     const point = watch(`points.${props.index}`) as PointModel | undefined;
     const [toggleContext, setToggleContext] = useState(point?.context || false);
     const {
@@ -38,7 +40,7 @@ export default function PointForm(props: {
             {...attributes}
         >
             <Grid >
-                <Grid.Col span={10} style={{ margin: "auto" }}>
+                <Grid.Col span={8} style={{ margin: "auto" }}>
                     <TextInput size="md" {...register(`points.${props.index}.title`)}
                         placeholder="What points do you want to discuss?"
                         title="Point Title"
@@ -53,6 +55,12 @@ export default function PointForm(props: {
                         onKeyDown={getHotkeyHandler([
                             ['Enter', props.insertHandler],
                         ])}
+                    />
+                </Grid.Col>
+                <Grid.Col span={2} style={{ margin: "auto" }}>
+                    <NativeSelect title="Priority"
+                        data={PriorityMap}
+                        {...register(`points.${props.index}.priority`)}
                     />
                 </Grid.Col>
                 <Grid.Col span={2} style={{ margin: "auto" }}>

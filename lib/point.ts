@@ -12,8 +12,7 @@ export interface PointModel {
     id?: string,
     title?: string,
     context?: string,
-    notes?: string[],
-    actionItems?: string[],
+    notes?: string,
     priority?: Priority,
     status?: PointStatus,
 }
