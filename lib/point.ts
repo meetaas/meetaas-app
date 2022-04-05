@@ -13,7 +13,7 @@ export interface PointModel {
     title?: string,
     context?: string,
     notes?: string,
-    priority?: Priority,
+    priority: Priority,
     status?: PointStatus,
 }
 
@@ -21,14 +21,14 @@ export const PointFormModel = object({
     id: optional(string()),
     title: optional(size(string(), 0, 30)),
     context: optional(size(string(), 0, 200)),
-    priority: optional(enums(Object.values(Priority))),
+    priority: enums(Object.values(Priority)),
     status: optional(enums(Object.values(PointStatus))),
   });
   
 export type PointFormModel = Infer<typeof PointFormModel>
 
 export function defaultPoint(): PointModel {
-    return { id: nanoid()};
+    return { id: nanoid(), priority: Priority.Low};
 }
 
 export function createPoint(point: PointModel): PointModel{

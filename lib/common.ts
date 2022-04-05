@@ -6,11 +6,18 @@ export enum Priority {
 }
 
 export module Utils {
-    export function GetPriorityMap() {
+    export function GetPriorityValuesMap() {
         return Object.keys(Priority).map((key: string) => {
             return {value: Priority[key], label: key}
         });
     }
 }
 
-export const PriorityMap = Utils.GetPriorityMap();
+export const PriorityValuesMap = Utils.GetPriorityValuesMap();
+
+export const PriorityColorsMap = {
+    [Priority.Low]: "gray",
+    [Priority.Medium]: "yellow",
+    [Priority.High]: "orange",
+    [Priority.Urgent]: "red",
+}

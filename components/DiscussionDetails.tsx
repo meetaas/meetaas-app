@@ -3,17 +3,25 @@ import { Box, Title, Group, Paper } from '@mantine/core';
 import DiscussionActions from './DiscussionActions';
 import { useContext } from 'react';
 import PointList from './PointGrid';
+import PriorityBadge from './PriorityBadge';
+
+export function DiscussionTitle(props: { discussion: DiscussionModel }) {
+  return (<Group>
+    <Title>{props.discussion.title}</Title>
+    <PriorityBadge priority={props.discussion.priority} />
+  </Group>);
+}
 
 export function DiscussionHeader() {
   const { discussion, page } = useContext(DiscussionContext)
   return (
     <Group position="apart">
-      <Title>{discussion.title}</Title>
+      <DiscussionTitle discussion={discussion} />
       <DiscussionActions discussion={discussion} page={page} />
     </Group>
   );
 }
-export default function DiscussionDetails(): JSX.Element {
+export function DiscussionDetails(): JSX.Element {
   const { discussion } = useContext(DiscussionContext)
 
   return (

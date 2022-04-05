@@ -1,6 +1,6 @@
 import { Box } from '@mantine/core';
 import DiscussionContextProvider from '../../../components/DiscussionContextProvider';
-import DiscussionDetails from '../../../components/DiscussionDetails';
+import { DiscussionDetails } from '../../../components/DiscussionDetails';
 
 function DiscussionStartPageContent(): JSX.Element {
     return (

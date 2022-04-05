@@ -16,7 +16,7 @@ export interface DiscussionModel {
     title: string,
     context?: string,
     status?: DiscussionStatus,
-    priority?: Priority,
+    priority: Priority,
     points: PointModel[]
 }
 
@@ -25,7 +25,7 @@ export const DiscussionFormModel = object({
   title: size(string(), 5, 30),
   context: optional(size(string(), 0, 500)),
   status: optional(enums(Object.values(DiscussionStatus))),
-  priority: optional(enums(Object.values(Priority))),
+  priority: enums(Object.values(Priority)),
   points: array(PointFormModel)
 });
 
@@ -87,7 +87,7 @@ export module DiscussionErrors {
 } 
 
 export function defaultDiscussion(): DiscussionModel {
-  return {title: "", id: nanoid(), points: []};
+  return {title: "", id: nanoid(), points: [], priority: Priority.Low};
 }
 
 export const DiscussionContext = createContext({discussion: defaultDiscussion(), page: ""});

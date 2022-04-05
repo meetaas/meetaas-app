@@ -10,7 +10,7 @@ import { useContext, useState } from 'react';
 import { DiscussionModel, DiscussionFormModel, DiscussionContext } from '../lib/discussion';
 import PointsForm from './PointsForm';
 import { defaultPoint } from '../lib/point';
-import { PriorityMap } from '../lib/common';
+import { PriorityValuesMap } from '../lib/common';
 import { nanoid } from 'nanoid';
 
 function DiscussionFormFields(props: { discussion?: DiscussionModel }) {
@@ -32,7 +32,7 @@ function DiscussionFormFields(props: { discussion?: DiscussionModel }) {
                 </Grid.Col>
                 <Grid.Col span={2}>
                     <NativeSelect title="Priority"
-                        data={PriorityMap}
+                        data={PriorityValuesMap}
                         {...register("priority")}
                     />
                 </Grid.Col>

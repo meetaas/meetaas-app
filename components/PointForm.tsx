@@ -7,7 +7,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { getHotkeyHandler } from "@mantine/hooks";
 import { isValidPoint, PointModel } from "../lib/point";
-import { PriorityMap } from "../lib/common"
+import { PriorityValuesMap } from "../lib/common"
 
 export default function PointForm(props: {
     fieldId: string, pointsCount: number, index: number,
@@ -59,7 +59,7 @@ export default function PointForm(props: {
                 </Grid.Col>
                 <Grid.Col span={2} style={{ margin: "auto" }}>
                     <NativeSelect title="Priority"
-                        data={PriorityMap}
+                        data={PriorityValuesMap}
                         {...register(`points.${props.index}.priority`)}
                     />
                 </Grid.Col>
