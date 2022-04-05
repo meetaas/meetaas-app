@@ -1,10 +1,12 @@
 import { useRouter } from "next/router";
+import { PropsWithChildren } from "react";
 import { useDiscussionStore, DiscussionContext, DiscussionErrors, DiscussionError } from "../lib/discussion";
 import DefaultErrorFallback from "./DefaultErrorFallback";
 import DiscussionErrorFallback from "./DiscussionErrorFallback";
 import PageTitle from "./PageTitle";
 
-export default function DiscussionContextProvider({ children }) {
+export default function DiscussionContextProvider(props: PropsWithChildren<{ page?: string
+}>) {
     try {
         const router = useRouter();
         const { discussionId } = router.query
@@ -22,9 +24,9 @@ export default function DiscussionContextProvider({ children }) {
 
         }
         return (
-            <DiscussionContext.Provider value={discussion}>
+            <DiscussionContext.Provider value={{ discussion, page: props.page || ""}}>
                 <PageTitle title={discussion.title} />
-                {children}
+                {props.children}
             </DiscussionContext.Provider>
         )
     } catch (error) {

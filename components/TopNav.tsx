@@ -14,12 +14,11 @@ export default function TopNav() {
                             </Link>
                         </Button>
                     }>
-                    <Menu.Item>
-                        <Link href="/discussion/new">
+                    <Link href="/discussion/new">
+                        <Menu.Item >
                             <Text>Add Discussion</Text>
-                        </Link>
-                    </Menu.Item>
-
+                        </Menu.Item>
+                    </Link>
                 </Menu>
             </Group>
         </Header>

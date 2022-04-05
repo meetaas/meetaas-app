@@ -26,12 +26,12 @@ function PointsFormHeader(props: { handleAddAction: () => void }) {
 
 
 export default function PointsForm() {
-    const { append, fields, remove, swap, insert } = useFieldArray({
+    const { append, fields, remove, swap, insert, update } = useFieldArray({
         name: "points", // unique name for your Field Array
     });
     const sensors = useSensors(useSensor(PointerSensor, {
         activationConstraint: {
-            distance: {y: 5},
+            distance: { y: 5 },
         }
     }));
     const handleDragEnd = ({ active, over }) => {
@@ -40,10 +40,6 @@ export default function PointsForm() {
             const newIndex = fields.findIndex(item => item.id === over.id)
             swap(oldIndex, newIndex);
         }
-    }
-
-    if(fields.length === 0) {
-        append(defaultPoint());
     }
 
     return (

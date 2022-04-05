@@ -4,10 +4,15 @@ import { IconEye, IconPencil, IconPlayerPlay, IconTrash } from "@tabler/icons";
 import { DiscussionModel, useDiscussionStore } from "../lib/discussion";
 import { useState } from "react";
 
-export default function DiscussionActions(props: { discussion: DiscussionModel }) {
+export default function DiscussionActions(props: {
+    discussion: DiscussionModel,
+    page?: string
+}) {
     const [removeModalOpened, setRemoveModalOpened] = useState(false);
     const router = useRouter();
     const removeDiscussion = useDiscussionStore(store => store.removeDiscussion);
+    const shouldShowView = props.page !== "view";
+    const shouldShowStart = props.page !== "start";
 
     const discussion = props.discussion;
     return (
@@ -26,20 +31,24 @@ export default function DiscussionActions(props: { discussion: DiscussionModel }
                 </Group>
             </Modal>
             <Group position="right">
-                <ActionIcon
-                    color="blue"
-                    variant="hover"
-                    onClick={() => router.push(`/discussion/${discussion.id}`)}
-                >
-                    <IconEye size={16} />
-                </ActionIcon>
-                <ActionIcon
-                    color="blue"
-                    variant="hover"
-                    onClick={() => router.push(`/discussion/${discussion.id}/start`)}
-                >
-                    <IconPlayerPlay size={16} />
-                </ActionIcon>
+                {shouldShowView &&
+                    <ActionIcon
+                        color="blue"
+                        variant="hover"
+                        onClick={() => router.push(`/discussion/${discussion.id}`)}
+                    >
+                        <IconEye size={16} />
+                    </ActionIcon>
+                }
+                {shouldShowStart &&
+                    <ActionIcon
+                        color="blue"
+                        variant="hover"
+                        onClick={() => router.push(`/discussion/${discussion.id}/start`)}
+                    >
+                        <IconPlayerPlay size={16} />
+                    </ActionIcon>
+                }
                 <ActionIcon
                     color="blue"
                     variant="hover"

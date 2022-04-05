@@ -1,10 +1,12 @@
 import { IconDots } from '@tabler/icons';
+import {isEmpty} from 'rambda';
 import { TextInput, Button, ActionIcon, Textarea, Box, Title, Center, Card } from '@mantine/core';
-import { FormProvider, useForm, useFormContext, UseFormSetValue } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { superstructResolver } from '@hookform/resolvers/superstruct';
-import { useState } from 'react';
-import { DiscussionModel, DiscussionFormModel } from '../lib/discussion';
+import { useContext, useState } from 'react';
+import { DiscussionModel, DiscussionFormModel, DiscussionContext } from '../lib/discussion';
 import PointsForm from './PointsForm';
+import { defaultPoint } from '../lib/point';
 
 function DiscussionFormFields(props: { discussion?: DiscussionModel }) {
     const [toggleContext, setToggleContext] = useState(props.discussion?.context || false);
@@ -38,13 +40,18 @@ function DiscussionFormFields(props: { discussion?: DiscussionModel }) {
 export default function DiscussionForm(props: {
     handleFormSubmit: (form) => Promise<void>,
     action: "Create" | "Update",
-    discussion?: DiscussionModel
 }): JSX.Element {
+
+    const { discussion } = useContext(DiscussionContext);
+
+    if(isEmpty(discussion.points)) {
+        discussion.points = [defaultPoint()];
+    }
 
     const formMethods = useForm<DiscussionFormModel>({
         mode: "onTouched",
         resolver: superstructResolver(DiscussionFormModel),
-        defaultValues: props.discussion
+        defaultValues: discussion
     });
 
     return (
@@ -55,7 +62,7 @@ export default function DiscussionForm(props: {
                     <form onSubmit={
                         formMethods.handleSubmit<DiscussionFormModel>(props.handleFormSubmit)
                     }>
-                        <DiscussionFormFields discussion={props.discussion} />
+                        <DiscussionFormFields discussion={discussion} />
                         <PointsForm />
                         <Center><Button type="submit" style={{ marginTop: 20 }}>{props.action}</Button></Center>
                     </form>

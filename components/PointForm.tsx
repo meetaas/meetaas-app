@@ -64,7 +64,6 @@ export default function PointForm(props: {
                         </ActionIcon>
                         <ActionIcon size="md" title="Remove Point"
                             variant="filled" color="red"
-                            disabled={props.pointsCount == 1}
                             onClick={props.removeHandler}>
                             <IconTrash size={14} />
                         </ActionIcon>

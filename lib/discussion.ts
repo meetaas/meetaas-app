@@ -90,7 +90,7 @@ export function defaultDiscussion(): DiscussionModel {
   return {title: "", id: nanoid(), points: []};
 }
 
-export const DiscussionContext = createContext(defaultDiscussion());
+export const DiscussionContext = createContext({discussion: defaultDiscussion(), page: ""});
 
 export class DiscussionError extends Error {
   constructor(message: string) {

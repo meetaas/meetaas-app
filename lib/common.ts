@@ -4,3 +4,9 @@ export enum Priority {
     High = "high",
     Urgent = "urgent"
 }
+
+export module Utils {
+    export function EnumToSelectData(object: Enum) {
+        
+    }
+}

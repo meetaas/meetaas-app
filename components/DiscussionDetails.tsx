@@ -1,22 +1,26 @@
-import { DiscussionModel } from '../lib/discussion';
-import { Box, Title, Group } from '@mantine/core';
+import { DiscussionContext, DiscussionModel } from '../lib/discussion';
+import { Box, Title, Group, Paper } from '@mantine/core';
 import DiscussionActions from './DiscussionActions';
+import { useContext } from 'react';
+import PointList from './PointGrid';
 
-export function DiscussionHeader(props: { discussion: DiscussionModel }) {
-  const discussion = props.discussion;
+export function DiscussionHeader() {
+  const { discussion, page } = useContext(DiscussionContext)
   return (
     <Group position="apart">
       <Title>{discussion.title}</Title>
-      <DiscussionActions discussion={discussion} />
+      <DiscussionActions discussion={discussion} page={page} />
     </Group>
   );
 }
-export default function DiscussionDetails(props: { discussion: DiscussionModel }): JSX.Element {
-  const discussion = props.discussion;
+export default function DiscussionDetails(): JSX.Element {
+  const { discussion } = useContext(DiscussionContext)
 
   return (
     <Box>
-      <DiscussionHeader discussion={discussion} />
+      <DiscussionHeader />
+      {!!discussion.context && <Paper>{discussion.context}</Paper> }
+      <PointList points={discussion.points}/>
     </Box>
   );
 }

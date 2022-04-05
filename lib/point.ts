@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
-import { Priority } from "./common";
 import { object, optional, string, size, Infer, enums } from 'superstruct';
-
+import { isEmpty, isNil } from 'rambda';
+import { Priority } from "./common";
 
 export enum PointStatus {
     Open = "open",
@@ -12,6 +12,8 @@ export interface PointModel {
     id?: string,
     title?: string,
     context?: string,
+    notes?: string[],
+    actionItems?: string[],
     priority?: Priority,
     status?: PointStatus,
 }
@@ -38,5 +40,5 @@ export function createPoint(point: PointModel): PointModel{
 }
 
 export function isValidPoint(point?: PointModel): boolean {
-    return !!point && !!point.title && point.title.length > 0; 
+    return !isNil(point) && !isEmpty(point?.title); 
 }

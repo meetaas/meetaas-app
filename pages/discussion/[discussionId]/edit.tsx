@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router';
-import { DiscussionContext, useDiscussionStore } from '../../../lib/discussion';
-
+import { useDiscussionStore } from '../../../lib/discussion';
 import DiscussionForm from '../../../components/DiscussionForm';
 import { Box } from '@mantine/core';
-import { useContext } from 'react';
 import DiscussionContextProvider from '../../../components/DiscussionContextProvider';
 
 export default function DiscussionEditPage(): JSX.Element {
     return (
-        <DiscussionContextProvider>
+        <DiscussionContextProvider page='edit'>
             <DiscussionEditPageContent />
         </DiscussionContextProvider>
     );
@@ -16,7 +14,6 @@ export default function DiscussionEditPage(): JSX.Element {
 
 function DiscussionEditPageContent() {
     const router = useRouter();
-    const discussion = useContext(DiscussionContext);
     const { updateDiscussion } = useDiscussionStore(store => ({
         updateDiscussion: store.updateDiscussion
     }));
@@ -26,8 +23,7 @@ function DiscussionEditPageContent() {
     }
     return (
         <Box title="Edit Discussion">
-            <DiscussionForm handleFormSubmit={handleFormSubmit}
-                action="Update" discussion={discussion} />
+            <DiscussionForm handleFormSubmit={handleFormSubmit} action="Update" />
         </Box>
     );
 }

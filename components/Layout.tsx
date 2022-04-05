@@ -8,7 +8,7 @@ export default function Layout({ children }) {
       header={<TopNav />}
       styles={(theme) => ({
         main: {
-          height: "100vh",
+          minHeight: "100vh",
           backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0]
         },
       })}
