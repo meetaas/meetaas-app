@@ -57,7 +57,7 @@ export default function DiscussionForm(props: {
     action: "Create" | "Update",
 }): JSX.Element {
 
-    const { discussion } = useContext(DiscussionContext);
+    const { context: {discussion} } = useContext(DiscussionContext);
 
     if (isEmpty(discussion.points)) {
         discussion.points = [defaultPoint()];

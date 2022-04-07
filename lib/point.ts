@@ -19,7 +19,7 @@ export interface PointModel {
 
 export const PointFormModel = object({
     id: optional(string()),
-    title: optional(size(string(), 0, 30)),
+    title: optional(size(string(), 0, 50)),
     context: optional(size(string(), 0, 200)),
     priority: enums(Object.values(Priority)),
     status: optional(enums(Object.values(PointStatus))),

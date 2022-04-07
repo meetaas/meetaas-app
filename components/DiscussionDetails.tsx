@@ -1,9 +1,8 @@
 import { DiscussionContext, DiscussionModel } from '../lib/discussion';
 import { Box, Title, Group, Paper } from '@mantine/core';
 import DiscussionActions from './DiscussionActions';
-import { useContext } from 'react';
-import PointList from './PointGrid';
-import PriorityBadge from './PriorityBadge';
+import PointsGrid from './PointsGrid';
+import PriorityBadge from './Common';
 
 export function DiscussionTitle(props: { discussion: DiscussionModel }) {
   return (<Group>
@@ -13,24 +12,29 @@ export function DiscussionTitle(props: { discussion: DiscussionModel }) {
 }
 
 export function DiscussionHeader() {
-  const { discussion, page } = useContext(DiscussionContext)
   return (
-    <Group position="apart">
-      <DiscussionTitle discussion={discussion} />
-      <DiscussionActions discussion={discussion} page={page} />
-    </Group>
+    <DiscussionContext.Consumer>
+      {({ context: { discussion, page } }) => (
+        <Group position="apart">
+          <DiscussionTitle discussion={discussion} />
+          <DiscussionActions discussion={discussion} page={page} />
+        </Group>
+      )}
+    </DiscussionContext.Consumer>
   );
 }
 export function DiscussionDetails(): JSX.Element {
-  const { discussion } = useContext(DiscussionContext)
-
   return (
-    <Box>
-      <DiscussionHeader />
-      {!!discussion.context && <Paper style={{ marginBottom: 10, padding: 10 }}>
-        {discussion.context}
-      </Paper>}
-      <PointList points={discussion.points} />
-    </Box>
+    <DiscussionContext.Consumer>
+      {({ context: { discussion } }) => (
+        <Box>
+          <DiscussionHeader />
+          {!!discussion.context && <Paper style={{ marginBottom: 10, padding: 10 }}>
+            {discussion.context}
+          </Paper>}
+          <PointsGrid points={discussion.points} />
+        </Box>
+      )}
+    </DiscussionContext.Consumer>
   );
 }

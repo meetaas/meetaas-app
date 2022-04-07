@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useState } from "react";
 import { useDiscussionStore, DiscussionContext, DiscussionErrors, DiscussionError } from "../lib/discussion";
 import DefaultErrorFallback from "./DefaultErrorFallback";
 import DiscussionErrorFallback from "./DiscussionErrorFallback";
 import PageTitle from "./PageTitle";
 
-export default function DiscussionContextProvider(props: PropsWithChildren<{ page?: string
+export default function DiscussionContextProvider(props: PropsWithChildren<{
+    page?: string
 }>) {
     try {
         const router = useRouter();
@@ -14,20 +15,33 @@ export default function DiscussionContextProvider(props: PropsWithChildren<{ pag
         if (!discussionId) {
             throw new DiscussionError(DiscussionErrors.ID_REQUIRED);
         }
-        const { getDiscussion } = useDiscussionStore(store => ({
-            getDiscussion: store.getDiscussion
+        const { getDiscussion, updateDiscussion } = useDiscussionStore(store => ({
+            getDiscussion: store.getDiscussion,
+            updateDiscussion: store.updateDiscussion,
         }));
-        const discussion = getDiscussion(discussionId as string);
+        const discussionFromStore = getDiscussion(discussionId as string);
 
-        if (!discussion) {
+        if (!discussionFromStore) {
             throw new DiscussionError(DiscussionErrors.NOT_FOUND);
-
         }
+        const [discussionContext, setDisucssionContext] = useState({
+            discussion: discussionFromStore, page: props.page || ""
+        });
+        const updateContext = (discussion) => {
+            updateDiscussion(discussion);
+            setDisucssionContext(state => ({
+                discussion: discussion,
+                page: discussionContext.page
+            }))
+        };
         return (
-            <DiscussionContext.Provider value={{ discussion, page: props.page || ""}}>
-                <PageTitle title={discussion.title} />
+            <DiscussionContext.Provider value={{
+                context: discussionContext,
+                updateContext
+            }} >
+                <PageTitle title={discussionContext.discussion.title} />
                 {props.children}
-            </DiscussionContext.Provider>
+            </ DiscussionContext.Provider>
         )
     } catch (error) {
         if (error instanceof DiscussionError) {

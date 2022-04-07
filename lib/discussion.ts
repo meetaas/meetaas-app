@@ -22,7 +22,7 @@ export interface DiscussionModel {
 
 export const DiscussionFormModel = object({
   id: optional(string()),
-  title: size(string(), 5, 30),
+  title: size(string(), 5, 50),
   context: optional(size(string(), 0, 500)),
   status: optional(enums(Object.values(DiscussionStatus))),
   priority: enums(Object.values(Priority)),
@@ -90,7 +90,12 @@ export function defaultDiscussion(): DiscussionModel {
   return {title: "", id: nanoid(), points: [], priority: Priority.Low};
 }
 
-export const DiscussionContext = createContext({discussion: defaultDiscussion(), page: ""});
+export const DiscussionContext = createContext({
+  context: {
+    discussion: defaultDiscussion(), page: ""
+  }, 
+  updateContext: (discussion: DiscussionModel) => {}
+});
 
 export class DiscussionError extends Error {
   constructor(message: string) {
