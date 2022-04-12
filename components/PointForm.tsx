@@ -1,5 +1,5 @@
 import { ActionIcon, Card, Grid, Group, NativeSelect, Textarea, TextInput } from "@mantine/core";
-import { IconDots, IconDragDrop, IconTrash } from "@tabler/icons";
+import { IconDots, IconDragDrop, IconPlus, IconTrash } from "@tabler/icons";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { DiscussionFormModel } from "../lib/discussion";
@@ -64,14 +64,19 @@ export default function PointForm(props: {
                     />
                 </Grid.Col>
                 <Grid.Col span={2} style={{ margin: "auto" }}>
+
                     <Group position="center">
+                        <ActionIcon variant="hover" title="Add Point"
+                            color="blue" onClick={props.insertHandler}>
+                            <IconPlus size={14} />
+                        </ActionIcon>
                         <ActionIcon {...listeners} size="md" title="Order Point"
-                            variant="filled" color="blue"
+                            variant="hover" color="blue"
                             disabled={props.pointsCount == 1}>
                             <IconDragDrop size={14} />
                         </ActionIcon>
                         <ActionIcon size="md" title="Remove Point"
-                            variant="filled" color="red"
+                            variant="hover" color="red"
                             onClick={props.removeHandler}>
                             <IconTrash size={14} />
                         </ActionIcon>

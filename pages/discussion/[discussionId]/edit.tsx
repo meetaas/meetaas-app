@@ -3,10 +3,11 @@ import { useDiscussionStore } from '../../../lib/discussion';
 import DiscussionForm from '../../../components/DiscussionForm';
 import { Box } from '@mantine/core';
 import DiscussionContextProvider from '../../../components/DiscussionContextProvider';
+import { PageType } from '../../../lib/common';
 
 export default function DiscussionEditPage(): JSX.Element {
     return (
-        <DiscussionContextProvider page='edit'>
+        <DiscussionContextProvider page={PageType.EditPage}>
             <DiscussionEditPageContent />
         </DiscussionContextProvider>
     );

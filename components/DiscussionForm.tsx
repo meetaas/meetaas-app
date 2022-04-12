@@ -11,7 +11,6 @@ import { DiscussionModel, DiscussionFormModel, DiscussionContext } from '../lib/
 import PointsForm from './PointsForm';
 import { defaultPoint } from '../lib/point';
 import { PriorityValuesMap } from '../lib/common';
-import { nanoid } from 'nanoid';
 
 function DiscussionFormFields(props: { discussion?: DiscussionModel }) {
     const [toggleContext, setToggleContext] = useState(props.discussion?.context || false);

@@ -21,3 +21,10 @@ export const PriorityColorsMap = {
     [Priority.High]: "orange",
     [Priority.Urgent]: "red",
 }
+
+export enum PageType {
+    EditPage,
+    StartPage,
+    ViewPage,
+    NewPage,
+}

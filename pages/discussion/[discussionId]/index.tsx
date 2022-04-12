@@ -1,6 +1,7 @@
 import { Box } from '@mantine/core';
 import DiscussionContextProvider from '../../../components/DiscussionContextProvider';
 import { DiscussionDetails } from '../../../components/DiscussionDetails';
+import { PageType } from '../../../lib/common';
 
 function DiscussionDetailsPageContent(): JSX.Element {
     return (
@@ -12,7 +13,7 @@ function DiscussionDetailsPageContent(): JSX.Element {
 
 export default function DiscussionDetailsPage(): JSX.Element {
     return (
-        <DiscussionContextProvider page="view">
+        <DiscussionContextProvider page={PageType.ViewPage}>
             <DiscussionDetailsPageContent />
         </DiscussionContextProvider>
     );

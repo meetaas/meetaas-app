@@ -3,16 +3,17 @@ import { ActionIcon, Button, Group, Modal } from "@mantine/core";
 import { IconEye, IconPencil, IconPlayerPlay, IconTrash } from "@tabler/icons";
 import { DiscussionModel, useDiscussionStore } from "../lib/discussion";
 import { useState } from "react";
+import { PageType } from "../lib/common";
 
 export default function DiscussionActions(props: {
     discussion: DiscussionModel,
-    page?: string
+    page?: PageType
 }) {
     const [removeModalOpened, setRemoveModalOpened] = useState(false);
     const router = useRouter();
     const removeDiscussion = useDiscussionStore(store => store.removeDiscussion);
-    const shouldShowView = props.page !== "view";
-    const shouldShowStart = props.page !== "start";
+    const shouldShowView = props.page !== PageType.ViewPage;
+    const shouldShowStart = props.page !== PageType.StartPage;
 
     const discussion = props.discussion;
     return (
@@ -33,6 +34,7 @@ export default function DiscussionActions(props: {
             <Group position="right">
                 {shouldShowView &&
                     <ActionIcon
+                        title="View Discussion"
                         color="blue"
                         variant="hover"
                         onClick={() => router.push(`/discussion/${discussion.id}`)}
@@ -42,6 +44,7 @@ export default function DiscussionActions(props: {
                 }
                 {shouldShowStart &&
                     <ActionIcon
+                        title="Start Discussion"
                         color="blue"
                         variant="hover"
                         onClick={() => router.push(`/discussion/${discussion.id}/start`)}
@@ -51,12 +54,14 @@ export default function DiscussionActions(props: {
                 }
                 <ActionIcon
                     color="blue"
+                    title="Edit Discussion"
                     variant="hover"
                     onClick={() => router.push(`/discussion/${discussion.id}/edit`)}
                 >
                     <IconPencil size={16} />
                 </ActionIcon>
                 <ActionIcon
+                    title="Remove Discussion"
                     color="red"
                     variant="hover"
                     onClick={() => {

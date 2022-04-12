@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import create from 'zustand'
-import { Priority } from './common';
+import { PageType, Priority } from './common';
 import { createPoint, isValidPoint, PointFormModel, PointModel } from './point';
 import { object, optional, string, array, size, Infer, enums } from 'superstruct';
 import { createContext } from 'react';
@@ -90,12 +90,18 @@ export function defaultDiscussion(): DiscussionModel {
   return {title: "", id: nanoid(), points: [], priority: Priority.Low};
 }
 
+type DiscussionContextType = { context: 
+  { discussion: DiscussionModel, 
+    page?: PageType},
+    updateContext: (DiscussionModel) => void
+  }
+
 export const DiscussionContext = createContext({
   context: {
-    discussion: defaultDiscussion(), page: ""
+    discussion: defaultDiscussion()
   }, 
   updateContext: (discussion: DiscussionModel) => {}
-});
+} as DiscussionContextType);
 
 export class DiscussionError extends Error {
   constructor(message: string) {

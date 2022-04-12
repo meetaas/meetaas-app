@@ -1,7 +1,7 @@
 import { Card, Group, ScrollArea, Text, Title } from "@mantine/core";
 import { DiscussionModel } from "../lib/discussion";
 import DiscussionActions from "./DiscussionActions";
-import { DiscussionTitle } from "./DiscussionDetails";
+import DiscussionTitle from "./DiscussionTitle";
 
 export default function DiscussionCard(props: { discussion: DiscussionModel }) {
     const discussion = props.discussion;

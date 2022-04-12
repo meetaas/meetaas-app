@@ -1,12 +1,13 @@
 import { useRouter } from "next/router";
 import { PropsWithChildren, useState } from "react";
+import { PageType } from "../lib/common";
 import { useDiscussionStore, DiscussionContext, DiscussionErrors, DiscussionError } from "../lib/discussion";
 import DefaultErrorFallback from "./DefaultErrorFallback";
 import DiscussionErrorFallback from "./DiscussionErrorFallback";
 import PageTitle from "./PageTitle";
 
 export default function DiscussionContextProvider(props: PropsWithChildren<{
-    page?: string
+    page?: PageType
 }>) {
     try {
         const router = useRouter();
@@ -25,7 +26,7 @@ export default function DiscussionContextProvider(props: PropsWithChildren<{
             throw new DiscussionError(DiscussionErrors.NOT_FOUND);
         }
         const [discussionContext, setDisucssionContext] = useState({
-            discussion: discussionFromStore, page: props.page || ""
+            discussion: discussionFromStore, page: props.page
         });
         const updateContext = (discussion) => {
             updateDiscussion(discussion);

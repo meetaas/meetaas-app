@@ -1,32 +1,17 @@
 import {
     closestCenter, DndContext,
-    PointerSensor, useDndContext, useSensor, useSensors
+    PointerSensor, useSensor, useSensors
 } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { ActionIcon, Container, Group, Paper, Title } from "@mantine/core";
+import { ActionIcon, Box, Group, Paper, Title } from "@mantine/core";
 import { IconPlus } from "@tabler/icons";
 import { useFieldArray } from "react-hook-form";
 import { defaultPoint } from "../lib/point";
 import PointForm from "./PointForm";
 
-function PointsFormHeader(props: { handleAddAction: () => void }) {
-    return (
-        <Group position="apart">
-            <Title order={3}>
-                Points
-            </Title>
-            <ActionIcon variant="filled" title="Add Point"
-                color="blue" onClick={props.handleAddAction}>
-                <IconPlus size={16} />
-            </ActionIcon>
-        </Group>
-    );
-}
-
-
 export default function PointsForm() {
-    const { append, fields, remove, swap, insert, update } = useFieldArray({
+    const { fields, remove, swap, insert, append } = useFieldArray({
         name: "points", // unique name for your Field Array
     });
     const sensors = useSensors(useSensor(PointerSensor, {
@@ -44,8 +29,14 @@ export default function PointsForm() {
 
     return (
         <Paper style={{ margin: 15, padding: 10 }}>
-            <PointsFormHeader handleAddAction={() => { append(defaultPoint()) }} />
-            <Container title="Points">
+            <Group position="apart">
+                <Title order={3}>Points</Title>
+                <ActionIcon variant="hover" title="Add Point"
+                    color="blue" onClick={() => append(defaultPoint())}>
+                    <IconPlus size={16} />
+                </ActionIcon>
+            </Group>
+            <Box title="Points">
                 <DndContext modifiers={[restrictToParentElement]}
                     sensors={sensors}
                     collisionDetection={closestCenter}
@@ -62,7 +53,7 @@ export default function PointsForm() {
                         ))}
                     </SortableContext>
                 </DndContext>
-            </Container>
+            </Box>
         </Paper>
     );
 }

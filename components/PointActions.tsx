@@ -1,7 +1,6 @@
 import { ActionIcon, Group } from "@mantine/core";
-import { IconTrash } from "@tabler/icons";
-import { useContext } from "react";
-import { DiscussionContext, useDiscussionStore } from "../lib/discussion";
+import { IconPlus, IconTrash } from "@tabler/icons";
+import { DiscussionContext } from "../lib/discussion";
 import { PointModel } from "../lib/point";
 
 export default function PointActions(props: { point: PointModel }) {
@@ -12,6 +11,7 @@ export default function PointActions(props: { point: PointModel }) {
             {({ context: { discussion }, updateContext }) => (
                 <Group>
                     <ActionIcon
+                        title="Remove Point"
                         color="red"
                         variant="hover"
                         onClick={() => {

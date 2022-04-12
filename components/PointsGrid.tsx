@@ -1,7 +1,7 @@
 import { Box, Paper, SimpleGrid, Title } from "@mantine/core";
 import { isEmpty } from 'rambda';
 import { PointModel } from "../lib/point";
-import { PointCard } from "./Point";
+import { PointCard } from "./PointCard";
 
 export default function PointsGrid(props: { points: PointModel[] }) {
     const points = props.points;
